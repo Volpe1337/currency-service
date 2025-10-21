@@ -1,0 +1,17 @@
+syntax = "proto3";  // Указываем версию protobuf
+
+package proto;      // Имя пакета - будет соответствовать папке
+
+option go_package = "currency_service/proto";  // Куда генерировать Go код
+
+// Сообщение, представляющее валюту
+message Currency {
+  string name = 1;    // Название валюты (например: "USD")
+  string code = 2;    // Код валюты (например: "USD")
+  double value = 3;   // Значение курса (например: 90.123)
+}
+
+// Сообщение для отправки нескольких валют
+message CurrencyResponse {
+  repeated Currency currencies = 1;  // Список валют
+}
