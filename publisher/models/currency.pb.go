@@ -4,7 +4,7 @@
 // 	protoc        v6.33.0
 // source: proto/currency.proto
 
-package proto
+package models
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

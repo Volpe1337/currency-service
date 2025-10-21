@@ -1,4 +1,4 @@
-package subscriber
+package internal
 
 import (
 	"fmt"
