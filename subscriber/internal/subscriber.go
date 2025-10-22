@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"currency_service/proto" // Наш пакет
+	"github.com/Volpe1337/currency-service/subscriber/models" // Наш пакет
 
 	natsproto "google.golang.org/protobuf/proto" // Пакет protobuf с псевдонимом
 
@@ -25,7 +25,7 @@ func Start() error {
 	// Подписываемся на канал "currencies"
 	_, err = nc.Subscribe("currencies", func(msg *nats.Msg) {
 		// Распаковываем полученное сообщение
-		var currencyResponse proto.CurrencyResponse
+		var currencyResponse models.CurrencyResponse
 		err := natsproto.Unmarshal(msg.Data, &currencyResponse) // Используем псевдоним
 		if err != nil {
 			log.Println("Ошибка распаковки сообщения:", err)

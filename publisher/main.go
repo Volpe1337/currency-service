@@ -1,12 +1,12 @@
 package main
 
 import (
-	"currency_service/internal/publisher"
+	"github.com/Volpe1337/currency-service/publisher/internal"
 	"log"
 )
 
 func main() {
-	if err := publisher.Start(); err != nil {
+	if err := internal.Start(); err != nil {
 		log.Fatal("Ошибка запуска отправителя:", err)
 	}
 }

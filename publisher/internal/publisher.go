@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"currency_service/proto"
+	"github.com/Volpe1337/currency-service/publisher/models"
 
 	natsproto "google.golang.org/protobuf/proto"
 
@@ -90,11 +90,11 @@ func fetchAndSendCurrencies(nc *nats.Conn) error {
 	targetCurrencies := []string{"USD", "EUR", "GBP", "CNY", "JPY"}
 
 	// Создаем protobuf сообщение
-	var currencies []*proto.Currency
+	var currencies []*models.Currency
 
 	for _, code := range targetCurrencies {
 		if currencyInfo, exists := cbrResponse.Valute[code]; exists {
-			currencies = append(currencies, &proto.Currency{
+			currencies = append(currencies, &models.Currency{
 				Name:  currencyInfo.Name,
 				Code:  currencyInfo.CharCode,
 				Value: currencyInfo.Value,
@@ -107,7 +107,7 @@ func fetchAndSendCurrencies(nc *nats.Conn) error {
 		return fmt.Errorf("не найдено ни одной валюты")
 	}
 
-	currencyResponse := &proto.CurrencyResponse{
+	currencyResponse := &models.CurrencyResponse{
 		Currencies: currencies,
 	}
 

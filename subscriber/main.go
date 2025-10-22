@@ -1,12 +1,13 @@
 package main
 
 import (
-	"currency_service/internal/subscriber"
 	"log"
+
+	"github.com/Volpe1337/currency-service/subscriber/internal"
 )
 
 func main() {
-	if err := subscriber.Start(); err != nil {
+	if err := internal.Start(); err != nil {
 		log.Fatal("Ошибка запуска подписчика:", err)
 	}
 }

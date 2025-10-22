@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: proto/currency.proto
+// source: models/currency.proto
 
 package models
 
@@ -33,7 +33,7 @@ type Currency struct {
 
 func (x *Currency) Reset() {
 	*x = Currency{}
-	mi := &file_proto_currency_proto_msgTypes[0]
+	mi := &file_models_currency_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *Currency) String() string {
 func (*Currency) ProtoMessage() {}
 
 func (x *Currency) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_currency_proto_msgTypes[0]
+	mi := &file_models_currency_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *Currency) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Currency.ProtoReflect.Descriptor instead.
 func (*Currency) Descriptor() ([]byte, []int) {
-	return file_proto_currency_proto_rawDescGZIP(), []int{0}
+	return file_models_currency_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Currency) GetName() string {
@@ -92,7 +92,7 @@ type CurrencyResponse struct {
 
 func (x *CurrencyResponse) Reset() {
 	*x = CurrencyResponse{}
-	mi := &file_proto_currency_proto_msgTypes[1]
+	mi := &file_models_currency_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -104,7 +104,7 @@ func (x *CurrencyResponse) String() string {
 func (*CurrencyResponse) ProtoMessage() {}
 
 func (x *CurrencyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_currency_proto_msgTypes[1]
+	mi := &file_models_currency_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -117,7 +117,7 @@ func (x *CurrencyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CurrencyResponse.ProtoReflect.Descriptor instead.
 func (*CurrencyResponse) Descriptor() ([]byte, []int) {
-	return file_proto_currency_proto_rawDescGZIP(), []int{1}
+	return file_models_currency_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CurrencyResponse) GetCurrencies() []*Currency {
@@ -127,39 +127,39 @@ func (x *CurrencyResponse) GetCurrencies() []*Currency {
 	return nil
 }
 
-var File_proto_currency_proto protoreflect.FileDescriptor
+var File_models_currency_proto protoreflect.FileDescriptor
 
-const file_proto_currency_proto_rawDesc = "" +
+const file_models_currency_proto_rawDesc = "" +
 	"\n" +
-	"\x14proto/currency.proto\x12\x05proto\"H\n" +
+	"\x15models/currency.proto\x12\x06models\"H\n" +
 	"\bCurrency\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\x12\x14\n" +
-	"\x05value\x18\x03 \x01(\x01R\x05value\"C\n" +
-	"\x10CurrencyResponse\x12/\n" +
+	"\x05value\x18\x03 \x01(\x01R\x05value\"D\n" +
+	"\x10CurrencyResponse\x120\n" +
 	"\n" +
-	"currencies\x18\x01 \x03(\v2\x0f.proto.CurrencyR\n" +
-	"currenciesB\x18Z\x16currency_service/protob\x06proto3"
+	"currencies\x18\x01 \x03(\v2\x10.models.CurrencyR\n" +
+	"currenciesB8Z6github.com/Volpe1337/currency-service/publisher/modelsb\x06proto3"
 
 var (
-	file_proto_currency_proto_rawDescOnce sync.Once
-	file_proto_currency_proto_rawDescData []byte
+	file_models_currency_proto_rawDescOnce sync.Once
+	file_models_currency_proto_rawDescData []byte
 )
 
-func file_proto_currency_proto_rawDescGZIP() []byte {
-	file_proto_currency_proto_rawDescOnce.Do(func() {
-		file_proto_currency_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_currency_proto_rawDesc), len(file_proto_currency_proto_rawDesc)))
+func file_models_currency_proto_rawDescGZIP() []byte {
+	file_models_currency_proto_rawDescOnce.Do(func() {
+		file_models_currency_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_models_currency_proto_rawDesc), len(file_models_currency_proto_rawDesc)))
 	})
-	return file_proto_currency_proto_rawDescData
+	return file_models_currency_proto_rawDescData
 }
 
-var file_proto_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_proto_currency_proto_goTypes = []any{
-	(*Currency)(nil),         // 0: proto.Currency
-	(*CurrencyResponse)(nil), // 1: proto.CurrencyResponse
+var file_models_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_models_currency_proto_goTypes = []any{
+	(*Currency)(nil),         // 0: models.Currency
+	(*CurrencyResponse)(nil), // 1: models.CurrencyResponse
 }
-var file_proto_currency_proto_depIdxs = []int32{
-	0, // 0: proto.CurrencyResponse.currencies:type_name -> proto.Currency
+var file_models_currency_proto_depIdxs = []int32{
+	0, // 0: models.CurrencyResponse.currencies:type_name -> models.Currency
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -167,26 +167,26 @@ var file_proto_currency_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_proto_currency_proto_init() }
-func file_proto_currency_proto_init() {
-	if File_proto_currency_proto != nil {
+func init() { file_models_currency_proto_init() }
+func file_models_currency_proto_init() {
+	if File_models_currency_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_currency_proto_rawDesc), len(file_proto_currency_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_models_currency_proto_rawDesc), len(file_models_currency_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_proto_currency_proto_goTypes,
-		DependencyIndexes: file_proto_currency_proto_depIdxs,
-		MessageInfos:      file_proto_currency_proto_msgTypes,
+		GoTypes:           file_models_currency_proto_goTypes,
+		DependencyIndexes: file_models_currency_proto_depIdxs,
+		MessageInfos:      file_models_currency_proto_msgTypes,
 	}.Build()
-	File_proto_currency_proto = out.File
-	file_proto_currency_proto_goTypes = nil
-	file_proto_currency_proto_depIdxs = nil
+	File_models_currency_proto = out.File
+	file_models_currency_proto_goTypes = nil
+	file_models_currency_proto_depIdxs = nil
 }

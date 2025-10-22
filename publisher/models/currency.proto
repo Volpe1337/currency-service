@@ -1,8 +1,9 @@
 syntax = "proto3";  // Указываем версию protobuf
 
-package proto;      // Имя пакета - будет соответствовать папке
+package models;      // Имя пакета - будет соответствовать папке
 
-option go_package = "currency_service/proto";  // Куда генерировать Go код
+option go_package = "github.com/Volpe1337/currency-service/publisher/models"
+;  // Куда генерировать Go код
 
 // Сообщение, представляющее валюту
 message Currency {
