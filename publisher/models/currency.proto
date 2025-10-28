@@ -1,18 +1,32 @@
-syntax = "proto3";  // Указываем версию protobuf
+syntax = "proto3";
 
-package models;      // Имя пакета - будет соответствовать папке
+package models;
 
-option go_package = "github.com/Volpe1337/currency-service/publisher/models"
-;  // Куда генерировать Go код
+option go_package = "github.com/Volpe1337/currency-service/publisher/models";
 
 // Сообщение, представляющее валюту
 message Currency {
-  string name = 1;    // Название валюты (например: "USD")
-  string code = 2;    // Код валюты (например: "USD")
-  double value = 3;   // Значение курса (например: 90.123)
+  string name = 1 [json_name = "name"];    // Название валюты
+  string code = 2 [json_name = "code"];    // Код валюты
+  double value = 3 [json_name = "value"];  // Значение курса
 }
 
 // Сообщение для отправки нескольких валют
 message CurrencyResponse {
-  repeated Currency currencies = 1;  // Список валют
+  repeated Currency currencies = 1 [json_name = "currencies"];  // Список валют
+}
+
+// Структура для прямого парсинга JSON из ЦБ РФ
+message CBRResponse {
+  map<string, CurrencyInfo> Valute = 1 [json_name = "Valute"];
+}
+
+message CurrencyInfo {
+  string ID = 1 [json_name = "ID"];
+  string NumCode = 2 [json_name = "NumCode"];
+  string CharCode = 3 [json_name = "CharCode"];
+  int32 Nominal = 4 [json_name = "Nominal"];
+  string Name = 5 [json_name = "Name"];
+  double Value = 6 [json_name = "Value"];
+  double Previous = 7 [json_name = "Previous"];
 }

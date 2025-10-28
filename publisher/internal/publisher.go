@@ -1,34 +1,21 @@
 package internal
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
 	"github.com/Volpe1337/currency-service/publisher/models"
 
+	jsoniter "github.com/json-iterator/go"
 	natsproto "google.golang.org/protobuf/proto"
 
 	"github.com/nats-io/nats.go"
 	"github.com/valyala/fasthttp"
 )
 
-// CBRResponse структура для парсинга ответа от ЦБ РФ
-type CBRResponse struct {
-	Valute map[string]CurrencyInfo `json:"Valute"`
-}
-
-// CurrencyInfo структура для информации о валюте от ЦБ РФ
-type CurrencyInfo struct {
-	ID       string  `json:"ID"`
-	NumCode  string  `json:"NumCode"`
-	CharCode string  `json:"CharCode"`
-	Nominal  int     `json:"Nominal"`
-	Name     string  `json:"Name"`
-	Value    float64 `json:"Value"`
-	Previous float64 `json:"Previous"`
-}
+// Создаем экземпляр jsoniter
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 // Start запускает отправитель данных о валютах
 func Start() error {
@@ -80,8 +67,9 @@ func fetchAndSendCurrencies(nc *nats.Conn) error {
 		return fmt.Errorf("неверный статус код: %d", statusCode)
 	}
 
-	// Парсим JSON ответ
-	var cbrResponse CBRResponse
+	// Парсим JSON ответ ПРЯМО в Protobuf модель CBRResponse
+	// Теперь JSON-теги в Protobuf схеме позволяют это сделать
+	var cbrResponse models.CBRResponse
 	if err := json.Unmarshal(resp.Body(), &cbrResponse); err != nil {
 		return fmt.Errorf("ошибка парсинга JSON: %w", err)
 	}
@@ -89,7 +77,7 @@ func fetchAndSendCurrencies(nc *nats.Conn) error {
 	// Создаем список интересующих нас валют
 	targetCurrencies := []string{"USD", "EUR", "GBP", "CNY", "JPY"}
 
-	// Создаем protobuf сообщение
+	// Создаем финальное сообщение для отправки
 	var currencies []*models.Currency
 
 	for _, code := range targetCurrencies {

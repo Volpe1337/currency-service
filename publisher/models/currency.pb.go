@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: models/currency.proto
+// source: currency.proto
 
 package models
 
@@ -24,16 +24,16 @@ const (
 // Сообщение, представляющее валюту
 type Currency struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`     // Название валюты (например: "USD")
-	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`     // Код валюты (например: "USD")
-	Value         float64                `protobuf:"fixed64,3,opt,name=value,proto3" json:"value,omitempty"` // Значение курса (например: 90.123)
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`     // Название валюты
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`     // Код валюты
+	Value         float64                `protobuf:"fixed64,3,opt,name=value,proto3" json:"value,omitempty"` // Значение курса
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Currency) Reset() {
 	*x = Currency{}
-	mi := &file_models_currency_proto_msgTypes[0]
+	mi := &file_currency_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *Currency) String() string {
 func (*Currency) ProtoMessage() {}
 
 func (x *Currency) ProtoReflect() protoreflect.Message {
-	mi := &file_models_currency_proto_msgTypes[0]
+	mi := &file_currency_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *Currency) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Currency.ProtoReflect.Descriptor instead.
 func (*Currency) Descriptor() ([]byte, []int) {
-	return file_models_currency_proto_rawDescGZIP(), []int{0}
+	return file_currency_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Currency) GetName() string {
@@ -92,7 +92,7 @@ type CurrencyResponse struct {
 
 func (x *CurrencyResponse) Reset() {
 	*x = CurrencyResponse{}
-	mi := &file_models_currency_proto_msgTypes[1]
+	mi := &file_currency_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -104,7 +104,7 @@ func (x *CurrencyResponse) String() string {
 func (*CurrencyResponse) ProtoMessage() {}
 
 func (x *CurrencyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_models_currency_proto_msgTypes[1]
+	mi := &file_currency_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -117,7 +117,7 @@ func (x *CurrencyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CurrencyResponse.ProtoReflect.Descriptor instead.
 func (*CurrencyResponse) Descriptor() ([]byte, []int) {
-	return file_models_currency_proto_rawDescGZIP(), []int{1}
+	return file_currency_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CurrencyResponse) GetCurrencies() []*Currency {
@@ -127,11 +127,148 @@ func (x *CurrencyResponse) GetCurrencies() []*Currency {
 	return nil
 }
 
-var File_models_currency_proto protoreflect.FileDescriptor
+// Структура для прямого парсинга JSON из ЦБ РФ
+type CBRResponse struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	Valute        map[string]*CurrencyInfo `protobuf:"bytes,1,rep,name=Valute,proto3" json:"Valute,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
 
-const file_models_currency_proto_rawDesc = "" +
+func (x *CBRResponse) Reset() {
+	*x = CBRResponse{}
+	mi := &file_currency_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CBRResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CBRResponse) ProtoMessage() {}
+
+func (x *CBRResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_currency_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CBRResponse.ProtoReflect.Descriptor instead.
+func (*CBRResponse) Descriptor() ([]byte, []int) {
+	return file_currency_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CBRResponse) GetValute() map[string]*CurrencyInfo {
+	if x != nil {
+		return x.Valute
+	}
+	return nil
+}
+
+type CurrencyInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ID            string                 `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	NumCode       string                 `protobuf:"bytes,2,opt,name=NumCode,proto3" json:"NumCode,omitempty"`
+	CharCode      string                 `protobuf:"bytes,3,opt,name=CharCode,proto3" json:"CharCode,omitempty"`
+	Nominal       int32                  `protobuf:"varint,4,opt,name=Nominal,proto3" json:"Nominal,omitempty"`
+	Name          string                 `protobuf:"bytes,5,opt,name=Name,proto3" json:"Name,omitempty"`
+	Value         float64                `protobuf:"fixed64,6,opt,name=Value,proto3" json:"Value,omitempty"`
+	Previous      float64                `protobuf:"fixed64,7,opt,name=Previous,proto3" json:"Previous,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CurrencyInfo) Reset() {
+	*x = CurrencyInfo{}
+	mi := &file_currency_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CurrencyInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CurrencyInfo) ProtoMessage() {}
+
+func (x *CurrencyInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_currency_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CurrencyInfo.ProtoReflect.Descriptor instead.
+func (*CurrencyInfo) Descriptor() ([]byte, []int) {
+	return file_currency_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CurrencyInfo) GetID() string {
+	if x != nil {
+		return x.ID
+	}
+	return ""
+}
+
+func (x *CurrencyInfo) GetNumCode() string {
+	if x != nil {
+		return x.NumCode
+	}
+	return ""
+}
+
+func (x *CurrencyInfo) GetCharCode() string {
+	if x != nil {
+		return x.CharCode
+	}
+	return ""
+}
+
+func (x *CurrencyInfo) GetNominal() int32 {
+	if x != nil {
+		return x.Nominal
+	}
+	return 0
+}
+
+func (x *CurrencyInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CurrencyInfo) GetValue() float64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *CurrencyInfo) GetPrevious() float64 {
+	if x != nil {
+		return x.Previous
+	}
+	return 0
+}
+
+var File_currency_proto protoreflect.FileDescriptor
+
+const file_currency_proto_rawDesc = "" +
 	"\n" +
-	"\x15models/currency.proto\x12\x06models\"H\n" +
+	"\x0ecurrency.proto\x12\x06models\"H\n" +
 	"\bCurrency\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\x12\x14\n" +
@@ -139,54 +276,72 @@ const file_models_currency_proto_rawDesc = "" +
 	"\x10CurrencyResponse\x120\n" +
 	"\n" +
 	"currencies\x18\x01 \x03(\v2\x10.models.CurrencyR\n" +
-	"currenciesB8Z6github.com/Volpe1337/currency-service/publisher/modelsb\x06proto3"
+	"currencies\"\x97\x01\n" +
+	"\vCBRResponse\x127\n" +
+	"\x06Valute\x18\x01 \x03(\v2\x1f.models.CBRResponse.ValuteEntryR\x06Valute\x1aO\n" +
+	"\vValuteEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12*\n" +
+	"\x05value\x18\x02 \x01(\v2\x14.models.CurrencyInfoR\x05value:\x028\x01\"\xb4\x01\n" +
+	"\fCurrencyInfo\x12\x0e\n" +
+	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x18\n" +
+	"\aNumCode\x18\x02 \x01(\tR\aNumCode\x12\x1a\n" +
+	"\bCharCode\x18\x03 \x01(\tR\bCharCode\x12\x18\n" +
+	"\aNominal\x18\x04 \x01(\x05R\aNominal\x12\x12\n" +
+	"\x04Name\x18\x05 \x01(\tR\x04Name\x12\x14\n" +
+	"\x05Value\x18\x06 \x01(\x01R\x05Value\x12\x1a\n" +
+	"\bPrevious\x18\a \x01(\x01R\bPreviousB8Z6github.com/Volpe1337/currency-service/publisher/modelsb\x06proto3"
 
 var (
-	file_models_currency_proto_rawDescOnce sync.Once
-	file_models_currency_proto_rawDescData []byte
+	file_currency_proto_rawDescOnce sync.Once
+	file_currency_proto_rawDescData []byte
 )
 
-func file_models_currency_proto_rawDescGZIP() []byte {
-	file_models_currency_proto_rawDescOnce.Do(func() {
-		file_models_currency_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_models_currency_proto_rawDesc), len(file_models_currency_proto_rawDesc)))
+func file_currency_proto_rawDescGZIP() []byte {
+	file_currency_proto_rawDescOnce.Do(func() {
+		file_currency_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_currency_proto_rawDesc), len(file_currency_proto_rawDesc)))
 	})
-	return file_models_currency_proto_rawDescData
+	return file_currency_proto_rawDescData
 }
 
-var file_models_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_models_currency_proto_goTypes = []any{
+var file_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_currency_proto_goTypes = []any{
 	(*Currency)(nil),         // 0: models.Currency
 	(*CurrencyResponse)(nil), // 1: models.CurrencyResponse
+	(*CBRResponse)(nil),      // 2: models.CBRResponse
+	(*CurrencyInfo)(nil),     // 3: models.CurrencyInfo
+	nil,                      // 4: models.CBRResponse.ValuteEntry
 }
-var file_models_currency_proto_depIdxs = []int32{
+var file_currency_proto_depIdxs = []int32{
 	0, // 0: models.CurrencyResponse.currencies:type_name -> models.Currency
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 1: models.CBRResponse.Valute:type_name -> models.CBRResponse.ValuteEntry
+	3, // 2: models.CBRResponse.ValuteEntry.value:type_name -> models.CurrencyInfo
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_models_currency_proto_init() }
-func file_models_currency_proto_init() {
-	if File_models_currency_proto != nil {
+func init() { file_currency_proto_init() }
+func file_currency_proto_init() {
+	if File_currency_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_models_currency_proto_rawDesc), len(file_models_currency_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_currency_proto_rawDesc), len(file_currency_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_models_currency_proto_goTypes,
-		DependencyIndexes: file_models_currency_proto_depIdxs,
-		MessageInfos:      file_models_currency_proto_msgTypes,
+		GoTypes:           file_currency_proto_goTypes,
+		DependencyIndexes: file_currency_proto_depIdxs,
+		MessageInfos:      file_currency_proto_msgTypes,
 	}.Build()
-	File_models_currency_proto = out.File
-	file_models_currency_proto_goTypes = nil
-	file_models_currency_proto_depIdxs = nil
+	File_currency_proto = out.File
+	file_currency_proto_goTypes = nil
+	file_currency_proto_depIdxs = nil
 }
